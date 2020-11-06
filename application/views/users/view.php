@@ -1,6 +1,6 @@
 <script type="text/javascript">
   $(document).ready(function() {
-    $(':input:not([type="submit"])').each(function() {
+    $(':input:not([type="button"])').each(function() {
       $(this).focus(function() {
         $(this).addClass('hilite');
       }).blur(function() {
@@ -121,108 +121,163 @@
     });
   }
 </script>
-<div id="view">
 
-  <div style="float:left; padding-bottom:5px;">
-    <button type="button" name="tambah" id="tambah" class="easyui-linkbutton" data-options="iconCls:'icon-add'">Tambah Data</button>
-
-    <a href="<?php echo base_url(); ?>index.php/users">
-      <button type="button" name="refresh" id="refresh" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">Refresh</button>
-    </a>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Users</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Menu</a></li>
+            <li class="breadcrumb-item active">Users</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
   </div>
-  <div style="float:right; padding-bottom:5px;">
-    <form name="form" method="post" action="<?php echo base_url(); ?>index.php/users">
-      Cari user_id/Nama Lengkap : <input type="text" name="txt_cari" id="txt_cari" size="50" />
-      <button type="submit" name="cari" id="cari" class="easyui-linkbutton" data-options="iconCls:'icon-search'">Cari</button>
-    </form>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="alert alert-info" role="alert">
+        Hai, Selamat datang <b><?php echo $this->session->userdata('namalengkap'); ?></b> di Manajeman <b><?php echo $nama_program; ?></b>
+        <hr>
+      </div><br>
+    </div>
+  </section>
+  <!-- /.content -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Daftar Users</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#tambahdata">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data
+            </button>
+            <a class="btn btn-info btn-sm" href="<?php echo base_url(); ?>index.php/users" role="button" name="refresh" id="refresh"><i class="fa fa-retweet" aria-hidden="true"></i> Refresh</a><br><br>
+
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th align="center">user_id</th>
+                  <th>Nama Lengkap</th>
+                  <th>Level</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                if ($data->num_rows() > 0) {
+                  $no = 1 + $hal;
+                  foreach ($data->result_array() as $db) {
+                ?>
+                    <tr>
+                      <td align="center" width="20"><?php echo $no; ?></td>
+                      <td width="150"><?php echo $db['user_id']; ?></td>
+                      <td><?php echo $db['namalengkap']; ?></td>
+                      <td><?php echo $db['level']; ?></td>
+                      <td align="center" width="80">
+                        <a class="btn btn-primary btn-sm" href="#" role="button">
+                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                          </svg>
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="<?php echo base_url(); ?>index.php/users/hapus/<?php echo $db['user_id']; ?>" role="button" onClick="return confirm('Anda yakin ingin menghapus data ini?')">
+                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                          </svg>
+                        </a>
+                      </td>
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                } else {
+                  ?>
+                  <tr>
+                    <td colspan="6" align="center">Tidak Ada Data</td>
+                  </tr>
+                <?php
+                }
+                ?>
+
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>No</th>
+                  <th>user_id</th>
+                  <th>Nama Lengkap</th>
+                  <th>Level</th>
+                  <th>Aksi</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </section>
+</div><br><br>
+
+<!-- Start Modal Tambah Data -->
+<div class="modal fade" id="tambahdata" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" name="tambah" id="tambah">Tambah Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="form">
+        <form name="my-form" id="my-form">
+          <div class="modal-body">
+            <div class="form-group">
+              <label><strong>User Id</strong></label>
+              <input type="text" name="user_id" id="user_id" class="form-control" placeholder="Masukkan User Id">
+            </div>
+            <div class="form-group">
+              <label><strong>Password</strong></label>
+              <input type="password" name="pwd" id="pwd" class="form-control" placeholder="Masukkan Password">
+            </div>
+            <div class="form-group">
+              <label><strong>Nama Lengkap</strong></label>
+              <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama Lengkap">
+            </div>
+            <div class="form-group">
+              <label><strong>Level</strong></label>
+              <select class="form-control" name="level" id="level">
+                <option value="">-Pilih</option>
+                <option value="super admin">Super Admin</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" name="simpan" id="simpan" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-
-  <div style="padding:10px;"></div>
-  <table id="dataTable" width="100%">
-    <tr>
-      <th>No</th>
-      <th>user_id</th>
-      <th>Nama Lengkap</th>
-      <th>Level</th>
-      <th>Aksi</th>
-    </tr>
-    <?php
-    if ($data->num_rows() > 0) {
-      $no = 1 + $hal;
-      foreach ($data->result_array() as $db) {
-    ?>
-        <tr>
-          <td align="center" width="20"><?php echo $no; ?></td>
-          <td align="center" width="150"><?php echo $db['user_id']; ?></td>
-          <td><?php echo $db['namalengkap']; ?></td>
-          <td><?php echo $db['level']; ?></td>
-          <td align="center" width="80">
-            <?php echo "<a href='javascript:editData(\"{$db['user_id']}\")'>"; ?>
-            <img src="<?php echo base_url(); ?>asset/images/ed.png" title='Edit'>
-            </a>
-            <a href="<?php echo base_url(); ?>index.php/users/hapus/<?php echo $db['user_id']; ?>" onClick="return confirm('Anda yakin ingin menghapus data ini?')">
-              <img src="<?php echo base_url(); ?>asset/images/del.png" title='Hapus'>
-            </a>
-          </td>
-        </tr>
-      <?php
-        $no++;
-      }
-    } else {
-      ?>
-      <tr>
-        <td colspan="6" align="center">Tidak Ada Data</td>
-      </tr>
-    <?php
-    }
-    ?>
-  </table>
-  <?php echo "<table align='center'><tr><td>" . $paginator . "</td></tr></table>"; ?>
-
 </div>
-<div id="form">
-  <form name="my-form" id="my-form">
-    <fieldset class="atas">
-      <table width="100%">
-        <tr>
-          <td width="10%">user_id</td>
-          <td width="5">:</td>
-          <td><input type="text" name="user_id" id="user_id" size="30" maxlength="30" /></td>
-        </tr>
-        <tr>
-          <td>Password</td>
-          <td>:</td>
-          <td><input type="password" name="pwd" id="pwd" size="30" maxlength="30" /></td>
-        </tr>
-        <tr>
-          <td>Nama Lengkap</td>
-          <td>:</td>
-          <td><input type="text" name="nama" id="nama" size="50" maxlength="50" /></td>
-        </tr>
-        <tr>
-          <td>Level</td>
-          <td>:</td>
-          <td>
-            <select name="level" id="level">
-              <option value="">-Pilih</option>
-              <option value="super admin">Super Admin</option>
-              <option value="admin">Admin</option>
-              <option value="user">User</option>
-            </select>
-          </td>
-        </tr>
-      </table>
-    </fieldset>
-    <fieldset class="bawah">
-      <table width="100%">
-        <tr>
-          <td colspan="3" align="center">
-            <button type="button" name="simpan" id="simpan" class="easyui-linkbutton" data-options="iconCls:'icon-save'">SIMPAN</button>
-            <button type="button" name="tambah_data" id="tambah_data" class="easyui-linkbutton" data-options="iconCls:'icon-add'">TAMBAH</button>
-            <button type="button" name="kembali" id="kembali" class="easyui-linkbutton" data-options="iconCls:'icon-back'">KEMBALI</button>
-          </td>
-        </tr>
-      </table>
-    </fieldset>
-  </form>
-</div>
+<!-- End Modal Tambah Data -->
