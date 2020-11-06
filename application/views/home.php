@@ -1,102 +1,120 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 
 <head>
-	<title>Halaman Administrator</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="robots" content="index, follow">
-	<meta http-equiv="Copyright" content="SarjanaKomedi.com">
-	<meta name="author" content="SarjanaKomedi.com">
-	<meta http-equiv="imagetoolbar" content="no">
-	<meta name="language" content="Indonesia">
-	<meta name="revisit-after" content="7">
-	<meta name="webcrawlers" content="all">
-	<meta name="rating" content="general">
-	<meta name="spiders" content="all">
-
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>asset/css/layout.css">
-	<link href="<?php echo base_url(); ?>asset/css/fonts/stylesheet.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>asset/css/themes/cupertino/easyui.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>asset/css/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>asset/css/smoothness/jquery-ui-1.7.2.custom.css">
-
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/clock.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/app.js"></script>
-
-	<!--datepicker-->
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/ui.core.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/ui.datepicker-id.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/ui.datepicker.js"></script>
-
-	<!--Polling-->
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/highcharts.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/exporting.js"></script>
-
-	<!-- notifikasi -->
-	<!-- <script type="text/javascript" src="<?php echo base_url(); ?>asset/js/notifikasi.js"></script> -->
-	<script type="text/javascript" src="<?php echo base_url(); ?>asset/js/jquery.cookie.js"></script>
-
-
-	<script type="text/javascript">
-		$(function() {
-			$("#dataTable tr:even").addClass("stripe1");
-			$("#dataTable tr:odd").addClass("stripe2");
-			$("#dataTable tr").hover(
-				function() {
-					$(this).toggleClass("highlight");
-				},
-				function() {
-					$(this).toggleClass("highlight");
-				}
-			);
-		});
-	</script>
-
-
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Mitra Muda Sejahtera</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/fontawesome-free/css/all.min.css">
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- Tempusdominus Bbootstrap 4 -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+	<!-- iCheck -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+	<!-- JQVMap -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/jqvmap/jqvmap.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/adminlte.min.css">
+	<!-- overlayScrollbars -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+	<!-- Daterange picker -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/daterangepicker/daterangepicker.css">
+	<!-- summernote -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/plugins/summernote/summernote-bs4.css">
+	<!-- Google Font: Source Sans Pro -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body onLoad="goforit()">
-	<div class="header" style="height:70px;background:white;padding:2px;margin:0;">
-		<div style="float:left; padding:0px; margin:0px;">
-			<img src='<?php echo base_url(); ?>asset/images/logo_koperasi_85.png' style="padding:0; margin:0;" width="85" height="71">
-		</div>
-		<div class="judul" style="float:left; line-height:3px; margin-top:0px; padding:2px 5px;">
-			<h1><?php echo $instansi; ?></h1>
-			<p><b><?php echo $usaha; ?></b></p>
-			<p><?php echo $alamat_instansi; ?></p>
-		</div>
-		<div style="float:right; line-height:3px; text-align:center;">
-			<br /><br />
-			<h1>Apilkasi <?php echo $nama_program; ?></h1>
-			<p>.:: Jurnal Umum - Buku Besar - Laporan Laba Rugi ::.</p>
-		</div>
-	</div>
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
 
-	<div class="panel-header" fit="true" style="height:21px;padding-top:1px;padding-right:20px">
-		<div style="float:left;">
-			<a href="<?php echo base_url(); ?>index.php/home" class="easyui-linkbutton" data-options="plain:true" iconCls="icon-home">Home</a>
-			<a href="<?php echo base_url(); ?>index.php/login/logout" class="easyui-linkbutton" data-options="plain:true" iconCls="icon-logout">Logout</a>
-		</div>
-		<div style="float:right; padding-top:5px;">
-			<?php echo $this->session->userdata('namalengkap'); ?> &rarr;
-			<span id="clock"></span>
-		</div>
-	</div>
-	<!-- awal kiri -->
-	<?php echo $this->load->view('menu_kiri'); ?>
+		<!-- Navbar -->
+		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+			<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+				</li>
+			</ul>
 
-	<div id="tt" class="easyui-tabs" style="height:570px;">
-		<div title="<?php echo $judul; ?>" style="padding:10px">
-			<?php echo $content; ?>
-		</div>
-	</div>
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+				<!-- Messages Dropdown Menu -->
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" href="#">
+						<h5><strong><?php echo $instansi; ?></strong></h5>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+						<i class="fas fa-th-large"></i>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<!-- /.navbar -->
 
+		<!-- Start Menu -->
+		<?php echo $this->load->view('menu_kiri'); ?>
+		<!-- End Menu -->
 
-	<div class="panel-header" fit="true" style="height:20px;text-align:center;">
-		Copyright &copy; <?php echo $instansi; ?> <?= date('Y'); ?>.
+		<!-- Start Content -->
+		<?php echo $content; ?>
+		<!-- End Content -->
+
+		<footer class="main-footer">
+			<strong>Copyright &copy; <?php echo $instansi; ?> <?= date('Y'); ?></a>.</strong>
+			<div class="float-right d-none d-sm-inline-block">
+				<b>Version</b> 1.0
+			</div>
+		</footer>
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
 	</div>
+	<!-- ./wrapper -->
+
+	<!-- jQuery -->
+	<script src="<?php echo base_url(); ?>assets/plugins/jquery/jquery.min.js"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="<?php echo base_url(); ?>assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+		$.widget.bridge('uibutton', $.ui.button)
+	</script>
+	<!-- Bootstrap 4 -->
+	<script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- ChartJS -->
+	<script src="<?php echo base_url(); ?>assets/plugins/chart.js/Chart.min.js"></script>
+	<!-- Sparkline -->
+	<script src="<?php echo base_url(); ?>assets/plugins/sparklines/sparkline.js"></script>
+	<!-- JQVMap -->
+	<script src="<?php echo base_url(); ?>assets/plugins/jqvmap/jquery.vmap.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+	<!-- jQuery Knob Chart -->
+	<script src="<?php echo base_url(); ?>assets/plugins/jquery-knob/jquery.knob.min.js"></script>
+	<!-- daterangepicker -->
+	<script src="<?php echo base_url(); ?>assets/plugins/moment/moment.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/plugins/daterangepicker/daterangepicker.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script src="<?php echo base_url(); ?>assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- Summernote -->
+	<script src="<?php echo base_url(); ?>assets/plugins/summernote/summernote-bs4.min.js"></script>
+	<!-- overlayScrollbars -->
+	<script src="<?php echo base_url(); ?>assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="<?php echo base_url(); ?>assets/dist/js/adminlte.js"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<script src="<?php echo base_url(); ?>assets/dist/js/pages/dashboard.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="<?php echo base_url(); ?>assets/dist/js/demo.js"></script>
 </body>
 
 </html>
