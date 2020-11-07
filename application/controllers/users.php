@@ -168,6 +168,52 @@ class Users extends CI_Controller
       header('location:' . base_url());
     }
   }
+
+  //Tambah Data User
+  public function proses_tambah_data()
+  {
+
+    $data = [
+      "user_id" => $this->input->post('user_id'),
+      "password" => md5($this->input->post('password')),
+      "namalengkap" => $this->input->post('namalengkap'),
+      "level" => $this->input->post('level'),
+    ];
+
+    $this->db->insert('users_akuntansi', $data);
+
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Data berhasil ditambahkan!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>');
+    redirect('users');
+  }
+
+  //Edit Data User
+  public function proses_edit_data()
+  {
+    $data = [
+      "user_id" => $this->input->post('user_id'),
+      "password" => md5($this->input->post('password')),
+      "namalengkap" => $this->input->post('namalengkap'),
+      "level" => $this->input->post('level'),
+    ];
+
+    $id['user_id'] = $this->input->post('user_id');
+
+    $this->db->where('user_id', $this->input->post('user_id'));
+    $this->db->update('users_akuntansi', $data);
+
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Data berhasil diubah!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>');
+    redirect('users');
+  }
 }
 
 /* End of file profil.php */

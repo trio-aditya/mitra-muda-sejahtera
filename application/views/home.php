@@ -123,6 +123,8 @@
 	<!-- SweetAlert2 -->
 	<script src="<?php echo base_url(); ?>assets/sweetalert/dist/sweetalert2.min.js"></script>
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/sweetalert/dist/sweetalert2.min.css">
+	<!-- ChartJS -->
+	<script src="<?php echo base_url(); ?>assets/plugins/chart.js/Chart.min.js"></script>
 	<script>
 		$(function() {
 			$("#example1").DataTable();

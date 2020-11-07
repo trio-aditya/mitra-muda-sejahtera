@@ -34,7 +34,7 @@ class Saldo_awal extends CI_Controller
 			$d['periode'] = $cari;
 			$d['no'] = 0;
 
-			$text = "SELECT a.periode,b.no_rek,a.debet,a.kredit,
+			$text = "SELECT a.id,a.periode,b.no_rek,a.debet,a.kredit,
 					b.nama_rek
 					FROM saldo_awal as a
 					RIGHT JOIN rekening as b
@@ -156,6 +156,54 @@ class Saldo_awal extends CI_Controller
 		} else {
 			header('location:' . base_url());
 		}
+	}
+
+	//Tambah Data Saldo Awal
+	public function proses_tambah_data()
+	{
+
+		$data = [
+			"periode" => $this->input->post('periode'),
+			"no_rek" => $this->input->post('no_rek'),
+			"debet" => $this->input->post('debet'),
+			"kredit" => $this->input->post('kredit'),
+			"tgl_insert" => date('Y-m-d h:m:s'),
+			"username" =>  $this->session->userdata('user_id'),
+		];
+
+		$this->db->insert('saldo_awal', $data);
+
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Data berhasil ditambahkan!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>');
+		redirect('saldo_awal');
+	}
+
+	//Edit Data Saldo Awal
+	public function proses_edit_data()
+	{
+		$data = [
+			"periode" => $this->input->post('periode'),
+			"no_rek" => $this->input->post('no_rek'),
+			"debet" => $this->input->post('debet'),
+			"kredit" => $this->input->post('kredit'),
+			"tgl_insert" => date('Y-m-d h:m:s'),
+			"username" =>  $this->session->userdata('user_id'),
+		];
+
+		$this->db->where('id', $this->input->post('id'));
+		$this->db->update('saldo_awal', $data);
+
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Data berhasil diubah!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>');
+		redirect('saldo_awal');
 	}
 }
 
