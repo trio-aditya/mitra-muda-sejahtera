@@ -13,38 +13,73 @@
     <p><?php echo $error; ?></p>
   <?php
   } ?>
-  <form name="my-form" id="my-form" method="post" action="<?php echo site_url(); ?>/profile/simpan" enctype="multipart/form-data" autocomplete="off">
-    <fieldset class="atas">
-      <table width="100%">
-        <tr>
-          <td width="10%">user_id</td>
-          <td width="5">:</td>
-          <td><input type="text" name="user_id" id="user_id" size="30" maxlength="30" value="<?php echo $user_id; ?>" readonly /></td>
-        </tr>
-        <tr>
-          <td>Password</td>
-          <td>:</td>
-          <td><input type="password" name="pwd" id="pwd" size="30" maxlength="30" value="" />*) Kosongkan jika tidak diubah</td>
-        </tr>
-        <tr>
-          <td>Nama Lengkap</td>
-          <td>:</td>
-          <td><input type="text" name="nama" id="nama" size="50" maxlength="50" value="<?php echo $nama; ?>" /></td>
-        </tr>
-        <tr>
-          <td>Foto</td>
-          <td>:</td>
-          <td><input type="file" name="foto" id="foto" /></td>
-        </tr>
-      </table>
-    </fieldset>
-    <fieldset class="bawah">
-      <table width="100%">
-        <tr>
-          <td colspan="3" align="center">
-            <button type="submit" name="simpan" id="simpan" class="easyui-linkbutton" data-options="iconCls:'icon-save'">SIMPAN</button>
-        </tr>
-      </table>
-    </fieldset>
-  </form>
-</div>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Edit Profil</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Edit Profil</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="alert alert-info" role="alert">
+          Hai, Selamat datang <b><?php echo $this->session->userdata('namalengkap'); ?></b> di Manajeman <b><?php echo $nama_program; ?></b>
+          <hr>
+        </div><br>
+      </div>
+    </section>
+    <!-- /.content -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-12">
+            <?php echo $this->session->flashdata('pesan'); ?>
+            <form name="my-form" id="my-form" method="post" action="<?php echo site_url(); ?>/profile/simpan" enctype="multipart/form-data" autocomplete="off">
+              <div class="form-group">
+                <label><strong>Username</strong></label>
+                <input type="text" class="form-control" name="user_id" id="user_id" placeholder="Masukkan Username" value="<?php echo $user_id; ?>">
+              </div>
+              <hr>
+              <div class="form-group">
+                <label><strong>Password</strong></label>
+                <input type="password" name="pwd" id="pwd" class="form-control" placeholder="Masukkan Password" value="<?php echo $password; ?>">
+                <p class="text-danger">*) Kosongkan jika tidak diubah</p>
+              </div>
+              <hr>
+              <div class="form-group">
+                <label><strong>Nama Lengkap</strong></label>
+                <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan Nama Lengkap" value="<?php echo $nama; ?>">
+              </div>
+              <hr>
+              <div class="form-group">
+                <label><strong>Foto</strong></label>
+                <input type="file" class="form-control-file" name="foto" id="foto">
+              </div>
+              <hr>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success float-right">Simpan</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div><br><br>

@@ -131,7 +131,7 @@ class Users extends CI_Controller
     $cek = $this->session->userdata('logged_in');
     if (!empty($cek)) {
       $id = $this->uri->segment(3);
-      $this->app_model->manualQuery("DELETE FROM users_akuntansi WHERE user_id='$id'");
+      $this->app_model->manualQuery("DELETE FROM users_akuntansi WHERE id_user='$id'");
       echo "<meta http-equiv='refresh' content='0; url=" . base_url() . "index.php/users'>";
     } else {
       header('location:' . base_url());
@@ -194,6 +194,10 @@ class Users extends CI_Controller
   //Edit Data User
   public function proses_edit_data()
   {
+
+    $user = $this->input->post('user_id');
+    $cek = "SELECT * FROM users_akuntansi WHERE user_id='$user'";
+
     $data = [
       "user_id" => $this->input->post('user_id'),
       "password" => md5($this->input->post('password')),
@@ -201,9 +205,8 @@ class Users extends CI_Controller
       "level" => $this->input->post('level'),
     ];
 
-    $id['user_id'] = $this->input->post('user_id');
 
-    $this->db->where('user_id', $this->input->post('user_id'));
+    $this->db->where('id_user', $this->input->post('id_user'));
     $this->db->update('users_akuntansi', $data);
 
     $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">

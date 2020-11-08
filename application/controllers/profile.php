@@ -26,10 +26,11 @@ class Profile extends CI_Controller
       $d['judul'] = "Edit Profile";
 
       $id = $this->uri->segment(3);
-      $text = "SELECT * FROM users_akuntansi WHERE user_id='$id'";
+      $text = "SELECT * FROM users_akuntansi WHERE id_user='$id'";
       $data = $this->app_model->manualQuery($text);
 
       foreach ($data->result() as $db) {
+        $d['id_user']    = $db->id_user;
         $d['user_id']    = $db->user_id;
         $d['nama']  = $db->namalengkap;
         $d['level']  = $db->level;
@@ -50,7 +51,7 @@ class Profile extends CI_Controller
     if (!empty($cek)) {
 
       $pwd = $this->input->post('pwd');
-      $user_id = $this->input->post('user_id');
+      $id_user = $this->input->post('id_user');
 
       $foto = $_FILES['foto'];
 
@@ -76,20 +77,22 @@ class Profile extends CI_Controller
         $up['password'] = md5($pwd);
       }
 
-      $up['user_id']     = $user_id;
+      $up['user_id']     = $this->input->post('user_id');
       $up['namalengkap'] = $this->input->post('nama');
-      $id['user_id']     = $this->input->post('user_id');
+      $id['id_user']     = $id_user;
 
       $data = $this->app_model->getSelectedData("users_akuntansi", $id);
       if ($data->num_rows() > 0) {
         $this->app_model->updateData("users_akuntansi", $up, $id);
-        $this->session->set_flashdata('info', 'Data sukses di Update');
-      } else {
-        $this->app_model->insertData("users_akuntansi", $up);
-        $this->session->set_flashdata('info', 'Data sukses di Simpan');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Data berhasil diubah!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>');
       }
 
-      redirect('profile/edit/' . $user_id);
+      redirect('profile/edit/' . $id_user);
     } else {
       header('location:' . base_url());
     }
