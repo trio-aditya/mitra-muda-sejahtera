@@ -3,11 +3,20 @@
 class App_Model extends CI_Model
 {
 
-	/**
-	 * @author : Deddy Rusdiansyah
-	 * @web : http://deddyrusdiansyah.blogspot.com
-	 * @keterangan : Model untuk menangani semua query database aplikasi
-	 **/
+	public function editfoto($id)
+	{
+		$this->db->select('*');
+		$this->db->from('anggota');
+		$this->db->where('noanggota', $id);
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+
+	public function hapus_data($id)
+	{
+		$this->db->where('noanggota', $id);
+		$this->db->delete('anggota');
+	}
 
 	public function getAllData($table)
 	{

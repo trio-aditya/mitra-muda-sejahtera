@@ -1,13 +1,26 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if ( ! function_exists('clear_teks'))
-{
+if (!function_exists('clear_teks')) {
 	function clear_teks($teks)
 	{
-		$c = array (' ');
-    	$d = array ('-','/','\\',',','.','#',':',';','\'','"','[',']','{','}',')','(','|','`','~','!','@','%','$','^','&','*','=','?','+');
-		$s = strtolower(str_replace($d,"",$teks));
+		$c = array(' ');
+		$d = array('-', '/', '\\', ',', '.', '#', ':', ';', '\'', '"', '[', ']', '{', '}', ')', '(', '|', '`', '~', '!', '@', '%', '$', '^', '&', '*', '=', '?', '+');
+		$s = strtolower(str_replace($d, "", $teks));
 		$teks = strtolower(str_replace($c, '-', $s));
 		return $teks;
 	}
+}
+
+function getAutoNumber($table, $field, $pref, $length, $where = "")
+{
+	$ci = &get_instance();
+	$query = "SELECT IFNULL(MAX(CONVERT(MID($field," . (strlen($pref) + 1) . "," . ($length - strlen($pref)) . "),UNSIGNED INTEGER)),0)+1 AS NOMOR
+                FROM $table WHERE LEFT($field," . (strlen($pref)) . ")='$pref' $where";
+	$result = $ci->db->query($query)->row();
+	$zero = "";
+	$num = $length - strlen($pref) - strlen($result->NOMOR);
+	for ($i = 0; $i < $num; $i++) {
+		$zero = $zero . "0";
+	}
+	return $pref . $zero . $result->NOMOR;
 }

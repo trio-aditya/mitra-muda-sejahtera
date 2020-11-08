@@ -59,6 +59,103 @@ $level = $this->session->userdata('level');
                     </li>
                 <?php } ?>
 
+                <!--Start Data Master-->
+                <?php if (
+                    $this->uri->segment(1) == "profil" || $this->uri->segment(1) == "jenis" ||
+                    $this->uri->segment(1) == "anggota"
+                ) {
+                    echo
+                        '<li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-briefcase"></i>
+                            <p>
+                                Data Master
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>';
+                } else {
+                    echo
+                        ' <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-briefcase"></i>
+                            <p>
+                                Data Master
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>';
+                } ?>
+
+                <ul class="nav nav-treeview">
+                    <!-- Start Submenu Profil -->
+                    <?php if ($this->uri->segment(1) == "profil") { ?>
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="<?php echo site_url(); ?>/profil" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Profil
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->uri->segment(1) != "profil") { ?>
+                        <li class="nav-item has-treeview">
+                            <a href="<?php echo site_url(); ?>/profil" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Profil
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <!-- End Profil -->
+
+                    <!-- Start Submenu Jenis Simpanan -->
+                    <?php if ($this->uri->segment(1) == "jenis") { ?>
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="<?php echo site_url(); ?>/jenis" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Jenis Simpanan
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->uri->segment(1) != "jenis") { ?>
+                        <li class="nav-item has-treeview">
+                            <a href="<?php echo site_url(); ?>/jenis" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Jenis Simpanan
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <!-- End Data Jenis Simpanan -->
+
+                    <!-- Start Submenu Anggota -->
+                    <?php if ($this->uri->segment(1) == "anggota") { ?>
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="<?php echo site_url(); ?>/anggota" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Anggota
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->uri->segment(1) != "anggota") { ?>
+                        <li class="nav-item has-treeview">
+                            <a href="<?php echo site_url(); ?>/anggota" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Anggota
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <!-- End Submenu Anggota -->
+                </ul>
+
                 <?php
                 if ($level == 'super admin' or $level == 'admin') {
                 ?>
@@ -71,7 +168,7 @@ $level = $this->session->userdata('level');
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-copy"></i>
                             <p>
-                                Menu
+                                Akuntansi
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>';
@@ -81,7 +178,7 @@ $level = $this->session->userdata('level');
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
                             <p>
-                                Menu
+                                Akuntansi
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>';
@@ -374,7 +471,7 @@ $level = $this->session->userdata('level');
                 </ul>
                 </li>
 
-                <!--Start Laporan-->
+                <!--Start Grafik-->
                 <?php if (
                     $this->uri->segment(1) == "grafik"
                 ) {

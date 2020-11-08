@@ -274,9 +274,7 @@
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-						<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#tambahdata">
-							<i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data
-						</button>
+						<button type="button" name="tambah" id="tambah" class="btn btn-success btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data</button>
 						<a class="btn btn-info btn-sm" href="<?php echo base_url(); ?>index.php/jurnal_umum" role="button" name="refresh" id="refresh"><i class="fa fa-retweet" aria-hidden="true"></i> Refresh</a><br><br>
 						<form class="form-inline" name="form" method="post" action="<?php echo base_url(); ?>index.php/jurnal_penyesuaian">
 							<div class="form-group mx-sm-3 mb-2">
@@ -365,43 +363,86 @@
 	</section>
 </div><br><br>
 
-<!-- Start Modal Tambah Data -->
-<div class="modal fade" id="tambahdata" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" name="tambah" id="tambah">Tambah Data</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div id="form">
-				<form name="my-form" id="my-form">
-					<div class="modal-body">
-						<div class="form-group">
-							<label><strong>No Bukti</strong></label>
-							<input type="text" name="no_bukti" id="no_bukti" class="form-control" placeholder="Masukkan User Id">
-						</div>
-						<div class="form-group">
-							<label><strong>Keterangan</strong></label>
-							<textarea class="form-control" name="ket" id="ket" rows="3"></textarea>
-						</div>
-						<div class="form-group">
-							<label><strong>No Jurnal</strong></label>
-							<input type="text" name="no_jurnal" id="no_jurnal" class="form-control" placeholder="Masukkan Nama Lengkap">
-						</div>
-						<div class="form-group">
-							<label><strong>Tanggal</strong></label>
-							<input type="date" name="tgl" id="tgl" class="form-control" placeholder="Masukkan Nama Lengkap">
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="submit" name="simpan" id="simpan" class="btn btn-primary">Save</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+<div id="form">
+	<fieldset>
+		<table width="100%">
+			<tr>
+				<td width="50%" valign="top">
+					<table width="100%">
+						<tr>
+							<td width="20%">No Bukti</td>
+							<td width="5">:</td>
+							<td>
+								<input type="text" name="no_bukti" id="no_bukti" size="20" maxlength="20" />
+							</td>
+						</tr>
+						<tr>
+							<td>Keterangan</td>
+							<td>:</td>
+							<td>
+								<textarea name="ket" id="ket" style="width:300px; height:50px;"></textarea>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td width="50%" valign="top">
+					<table width="100%">
+						<tr>
+							<td width="20%">No Jurnal</td>
+							<td width="5">:</td>
+							<td>
+								<input type="text" name="no_jurnal" id="no_jurnal" size="20" maxlength="20" readonly="readonly" />
+							</td>
+						</tr>
+						<tr>
+							<td>Tanggal</td>
+							<td>:</td>
+							<td>
+								<input type="text" name="tgl" id="tgl" size="15" maxlength="15" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	<div style="margin:5px;"></div>
+	<fieldset class="atas">
+		<table width="100%">
+			<tr>
+				<th>No Rek</th>
+				<th>Nama Rekening</th>
+				<th>Debet</th>
+				<th>Kredit</th>
+			</tr>
+			<tr>
+				<td align="center">
+					<select name="no_rek" id="no_rek" class="kosong">
+						<option value="">-PILIH-</option>
+						<?php
+						foreach ($list_rek->result_array() as $t) {
+						?>
+							<option value="<?php echo $t['no_rek']; ?>"><?php echo $t['no_rek']; ?> | <?php echo $t['nama_rek']; ?></option>
+						<?php } ?>
+					</select>
+				</td>
+				<td align="center"><input type="text" name="nama_rek" id="nama_rek" class="kosong" size="50" maxlength="50" readonly="readonly" /></td>
+				<td align="center"><input type="text" name="dr" id="dr" class="angka" size="20" maxlength="20" onkeyup="formatNumber(this);" onchange="formatNumber(this);" /></td>
+				<td align="center"><input type="text" name="kr" id="kr" class="angka" size="20" maxlength="20" onkeyup="formatNumber(this);" onchange="formatNumber(this);" /></td>
+			</tr>
+		</table>
+	</fieldset>
+
+	<fieldset class="bawah">
+		<table width="100%">
+			<tr>
+				<td colspan="3" align="center">
+					<button name="simpan" id="simpan" class="easyui-linkbutton" data-options="iconCls:'icon-save'">SIMPAN</button>
+					<button name="tambah_data" id="tambah_data" class="easyui-linkbutton" data-options="iconCls:'icon-add'">TAMBAH</button>
+					<button type="button" name="kembali" id="kembali" class="easyui-linkbutton" data-options="iconCls:'icon-close'">TUTUP</button>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
 </div>
-<!-- End Modal Tambah Data -->
+<div id="tampil_data"></div>
