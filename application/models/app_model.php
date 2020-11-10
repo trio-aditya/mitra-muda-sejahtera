@@ -3,6 +3,16 @@
 class App_Model extends CI_Model
 {
 
+	//Data Simpanan
+	public function get_data()
+	{
+		$this->db->select('*');
+		$this->db->from('simpanan');
+		$this->db->order_by('id_simpanan', 'asc');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	public function editfoto($id)
 	{
 		$this->db->select('*');
@@ -400,6 +410,103 @@ class App_Model extends CI_Model
 			$this->session->set_flashdata('result_login', '<br>Username atau Password yang anda masukkan salah.');
 			header('location:' . base_url() . 'index.php/login');
 		}
+	}
+
+	//jumlah simpanan per jenis
+	public function Jumlah_Simpanan_Jenis($id, $jenis)
+	{
+		$q = $this->db->query("SELECT sum(jumlah) as total FROM simpanan WHERE id_jenis='$jenis' && noanggota='$id'");
+		if ($q->num_rows() > 0) {
+			foreach ($q->result() as $k) {
+				$hasil = $k->total;
+			}
+		} else {
+			$hasil = 0;
+		}
+		return $hasil;
+	}
+
+	//jumlah pengambilan per jenis
+	public function Jumlah_Pengambilan_Jenis($id, $jenis)
+	{
+		$q = $this->db->query("SELECT sum(jumlah) as total FROM pengambilan WHERE id_jenis='$jenis' && noanggota='$id'");
+		if ($q->num_rows() > 0) {
+			foreach ($q->result() as $k) {
+				$hasil = $k->total;
+			}
+		} else {
+			$hasil = 0;
+		}
+		return $hasil;
+	}
+
+	function cari($id)
+	{
+		$query = $this->db->get_where('anggota', array('noanggota' => $id));
+		return $query;
+	}
+
+	function cari2($id)
+	{
+		$query = $this->db->get_where('simpanan', array('noanggota' => $id));
+		return $query;
+	}
+
+
+	/*fungsi terbilang*/
+	public function bilang($x)
+	{
+		$x = abs($x);
+		$angka = array(
+			"", "satu", "dua", "tiga", "empat", "lima",
+			"enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"
+		);
+		$result = "";
+		if ($x < 12) {
+			$result = " " . $angka[$x];
+		} else if ($x < 20) {
+			$result = $this->app_model->bilang($x - 10) . " belas";
+		} else if ($x < 100) {
+			$result = $this->app_model->bilang($x / 10) . " puluh" . $this->app_model->bilang($x % 10);
+		} else if ($x < 200) {
+			$result = " seratus" . $this->app_model->bilang($x - 100);
+		} else if ($x < 1000) {
+			$result = $this->app_model->bilang($x / 100) . " ratus" . $this->app_model->bilang($x % 100);
+		} else if ($x < 2000) {
+			$result = " seribu" . $this->app_model->bilang($x - 1000);
+		} else if ($x < 1000000) {
+			$result = $this->app_model->bilang($x / 1000) . " ribu" . $this->app_model->bilang($x % 1000);
+		} else if ($x < 1000000000) {
+			$result = $this->app_model->bilang($x / 1000000) . " juta" . $this->app_model->bilang($x % 1000000);
+		} else if ($x < 1000000000000) {
+			$result = $this->app_model->bilang($x / 1000000000) . " milyar" . $this->app_model->bilang(fmod($x, 1000000000));
+		} else if ($x < 1000000000000000) {
+			$result = $this->app_model->bilang($x / 1000000000000) . " trilyun" . $this->app_model->bilang(fmod($x, 1000000000000));
+		}
+		return $result;
+	}
+	public function terbilang($x, $style = 4)
+	{
+		if ($x < 0) {
+			$hasil = "minus " . trim($this->app_model->bilang($x));
+		} else {
+			$hasil = trim($this->app_model->bilang($x));
+		}
+		switch ($style) {
+			case 1:
+				$hasil = strtoupper($hasil);
+				break;
+			case 2:
+				$hasil = strtolower($hasil);
+				break;
+			case 3:
+				$hasil = ucwords($hasil);
+				break;
+			default:
+				$hasil = ucfirst($hasil);
+				break;
+		}
+		return $hasil;
 	}
 }
 

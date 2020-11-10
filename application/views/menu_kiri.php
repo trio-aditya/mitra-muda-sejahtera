@@ -328,6 +328,150 @@ $level = $this->session->userdata('level');
                     </li>
                 <?php } ?>
 
+                <!--Start Transaksi-->
+                <?php if (
+                    $this->uri->segment(1) == "simpanan" || $this->uri->segment(1) == "pengambilan" ||
+                    $this->uri->segment(1) == "rekening_koran" || $this->uri->segment(1) == "pinjaman" ||
+                    $this->uri->segment(1) == "pembayaran"
+                ) {
+                    echo
+                        '<li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-handshake"></i>
+                            <p>
+                                Transaksi
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>';
+                } else {
+                    echo
+                        ' <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-handshake"></i>
+                            <p>
+                                Transaksi
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>';
+                } ?>
+
+                <ul class="nav nav-treeview">
+                    <!-- Start Submenu Simpanan -->
+                    <?php if ($this->uri->segment(1) == "simpanan") { ?>
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="<?php echo site_url(); ?>/simpanan" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Simpanan
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->uri->segment(1) != "simpanan") { ?>
+                        <li class="nav-item has-treeview">
+                            <a href="<?php echo site_url(); ?>/simpanan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Simpanan
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <!-- End Simpanan -->
+
+                    <!-- Start Submenu Penarikan Dana -->
+                    <?php if ($this->uri->segment(1) == "pengambilan") { ?>
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="<?php echo site_url(); ?>/pengambilan" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Penarikan Dana
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->uri->segment(1) != "pengambilan") { ?>
+                        <li class="nav-item has-treeview">
+                            <a href="<?php echo site_url(); ?>/pengambilan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Penarikan Dana
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <!-- End Data Penarikan Dana -->
+
+                    <!-- Start Submenu Rekening Koran -->
+                    <?php if ($this->uri->segment(1) == "rekening_koran") { ?>
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="<?php echo site_url(); ?>/rekening_koran" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Rekening Koran
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->uri->segment(1) != "rekening_koran") { ?>
+                        <li class="nav-item has-treeview">
+                            <a href="<?php echo site_url(); ?>/rekening_koran" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Rekening Koran
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <!-- End Submenu Rekening Koran -->
+
+                    <!-- Start Submenu Pinjaman -->
+                    <?php if ($this->uri->segment(1) == "pinjaman") { ?>
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="<?php echo site_url(); ?>/pinjaman" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Pinjaman
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->uri->segment(1) != "pinjaman") { ?>
+                        <li class="nav-item has-treeview">
+                            <a href="<?php echo site_url(); ?>/pinjaman" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Pinjaman
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <!-- End Submenu Pinjaman -->
+
+                    <!-- Start Submenu Pembayaran -->
+                    <?php if ($this->uri->segment(1) == "pembayaran") { ?>
+                        <li class="nav-item has-treeview menu-open">
+                            <a href="<?php echo site_url(); ?>/pembayaran" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Pembayaran
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->uri->segment(1) != "pembayaran") { ?>
+                        <li class="nav-item has-treeview">
+                            <a href="<?php echo site_url(); ?>/pembayaran" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Pembayaran
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <!-- End Submenu Pembayaran -->
+                </ul>
+
                 <!--Start Laporan-->
                 <?php if (
                     $this->uri->segment(1) == "lap_buku_besar" || $this->uri->segment(1) == "lap_neraca_saldo" || $this->uri->segment(1) == "lap_neraca_lajur"
